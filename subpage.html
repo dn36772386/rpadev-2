@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生別履修チェック除外登録 - rpadev RX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="rpadev-rx-common.css">
+</head>
+<body>
+    <header>
+        <div class="headerInfo">
+            <div class="logo-area">
+                <h1>rpadev RX</h1>
+            </div>
+            
+            <div class="fontSize">
+                <ul id="fontChange">
+                    <li id="fontS">小</li>
+                    <li id="fontM" class="current">中</li>
+                    <li id="fontL">大</li>
+                </ul>
+            </div>
+            
+            <div class="userInfo">USER1 全利用者ユーザ</div>
+            
+            <div class="btnAreaHeader">
+                <button class="btnMyhelp" disabled>
+                    <i class="fa fa-question-circle"></i> マイヘルプ
+                </button>
+                <button class="btnHelp">
+                    <i class="fa fa-question"></i> ヘルプ
+                </button>
+                <button class="btnClose">
+                    <i class="fa fa-close"></i> 閉じる
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <form id="funcForm" method="post" action="#">
+            <div class="headContent">
+                <div class="funcInfo">
+                    <h1>学生別履修チェック除外登録</h1>
+                    <div class="funcNameArea">
+                        <span class="funcName">学生別履修登録 [Kmd004]</span>
+                        <div class="btnAreaFuncTop">
+                            <button class="btnBack btnNormal letterSpaceHalf" type="button" onclick="goToIndex()">
+                                <i class="fa fa-mail-reply"></i> 戻る
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <section>
+                    <dl class="outputArea">
+                        <div class="itemTable">
+                            <dt><label>学生氏名</label></dt>
+                            <dd><span id="gakseiName">青木　文美</span></dd>
+                        </div>
+
+                        <div class="itemTable">
+                            <dt><label>学年</label></dt>
+                            <dd><span id="gakunen">4</span>年</dd>
+                            <dt><label>セメスタ</label></dt>
+                            <dd><span id="semester"></span></dd>
+                        </div>
+                        
+                        <div class="itemTable">
+                            <dt><label>カリキュラム学科組織</label></dt>
+                            <dd>1A：文学部 国文学科</dd>
+                        </div>
+                    </dl>
+                </section>
+
+                <section>
+                    <dl class="outputArea">
+                        <div class="itemTable">
+                            <dt><label>授業コード</label></dt>
+                            <dd><span id="jugyoCd">64204</span></dd>
+                            <dt><label>科目コード</label></dt>
+                            <dd><span id="kmkCd">100700</span></dd>
+                        </div>
+                        <div class="itemTable">
+                            <dt><label>授業科目名称</label></dt>
+                            <dd><span id="jugyoName">社　会　学</span></dd>
+                        </div>
+                    </dl>
+                </section>
+
+                <div class="ui-tabs">
+                    <ul class="ui-tabs-nav">
+                        <li class="ui-tabs-active"><a href="#tab1">履修基本ﾁｪｯｸ</a></li>
+                        <li><a href="#tab2">履修条件ﾁｪｯｸ</a></li>
+                    </ul>
+                    
+                    <div id="tab1" class="ui-tabs-panel">
+                        <section>
+                            <p class="countData"><span>26</span>件</p>
+                            <div class="ui-datatable ui-datatable-scrollable">
+                                <div class="ui-datatable-scrollable-header">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th class="colSizeCheckbox alignCenter">
+                                                    <input type="checkbox" id="selectAll1">
+                                                </th>
+                                                <th class="colSize10 alignLeft">履修基本エラーコード</th>
+                                                <th class="colSizeInitial alignLeft">履修基本エラーメッセージ</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="ui-datatable-scrollable-body" style="height:420px">
+                                    <table>
+                                        <tbody>
+                                            <tr class="ui-state-highlight">
+                                                <td class="colSizeCheckbox alignCenter">
+                                                    <div class="ui-chkbox-box ui-state-active ui-state-disabled">
+                                                        <span class="ui-chkbox-icon">✓</span>
+                                                    </div>
+                                                </td>
+                                                <td class="colSize10 alignLeft">001</td>
+                                                <td class="colSizeInitial alignLeft">授業が存在しません。</td>
+                                            </tr>
+                                            <tr class="ui-state-highlight">
+                                                <td class="colSizeCheckbox alignCenter">
+                                                    <div class="ui-chkbox-box ui-state-active ui-state-disabled">
+                                                        <span class="ui-chkbox-icon">✓</span>
+                                                    </div>
+                                                </td>
+                                                <td class="colSize10 alignLeft">002</td>
+                                                <td class="colSizeInitial alignLeft">配当されていない科目を履修しています。</td>
+                                            </tr>
+                                            <tr class="ui-state-highlight">
+                                                <td class="colSizeCheckbox alignCenter">
+                                                    <input type="checkbox" name="rskhCheckList_checkbox" checked>
+                                                </td>
+                                                <td class="colSize10 alignLeft">003</td>
+                                                <td class="colSizeInitial alignLeft">科目の配当学年・セメスタを満たしていません。</td>
+                                            </tr>
+                                            <tr class="ui-state-highlight">
+                                                <td class="colSizeCheckbox alignCenter">
+                                                    <input type="checkbox" name="rskhCheckList_checkbox" checked>
+                                                </td>
+                                                <td class="colSize10 alignLeft">004</td>
+                                                <td class="colSizeInitial alignLeft">終了学期と科目が同一である授業を複数履修しています。</td>
+                                            </tr>
+                                            <tr class="ui-state-highlight">
+                                                <td class="colSizeCheckbox alignCenter">
+                                                    <input type="checkbox" name="rskhCheckList_checkbox" checked>
+                                                </td>
+                                                <td class="colSize10 alignLeft">005</td>
+                                                <td class="colSizeInitial alignLeft">この授業の成績は既に登録されています。</td>
+                                            </tr>
+                                            <tr class="rowError">
+                                                <td class="colSizeCheckbox alignCenter">
+                                                    <input type="checkbox" name="rskhCheckList_checkbox">
+                                                </td>
+                                                <td class="colSize10 alignLeft">006</td>
+                                                <td class="colSizeInitial alignLeft">複数回修得不可である修得済科目を履修しています。</td>
+                                            </tr>
+                                            <tr class="ui-state-highlight">
+                                                <td class="colSizeCheckbox alignCenter">
+                                                    <input type="checkbox" name="rskhCheckList_checkbox" checked>
+                                                </td>
+                                                <td class="colSize10 alignLeft">007</td>
+                                                <td class="colSizeInitial alignLeft">複数回修得不可の科目を複数回履修しています。</td>
+                                            </tr>
+                                            <tr class="ui-state-highlight">
+                                                <td class="colSizeCheckbox alignCenter">
+                                                    <input type="checkbox" name="rskhCheckList_checkbox" checked>
+                                                </td>
+                                                <td class="colSize10 alignLeft">008</td>
+                                                <td class="colSizeInitial alignLeft">履修可能な年度・学期を満たしていません。</td>
+                                            </tr>
+                                            <tr class="ui-state-highlight">
+                                                <td class="colSizeCheckbox alignCenter">
+                                                    <input type="checkbox" name="rskhCheckList_checkbox" checked>
+                                                </td>
+                                                <td class="colSize10 alignLeft">009</td>
+                                                <td class="colSizeInitial alignLeft">一般学生用授業を履修しています。</td>
+                                            </tr>
+                                            <tr class="ui-state-highlight">
+                                                <td class="colSizeCheckbox alignCenter">
+                                                    <input type="checkbox" name="rskhCheckList_checkbox" checked>
+                                                </td>
+                                                <td class="colSize10 alignLeft">010</td>
+                                                <td class="colSizeInitial alignLeft">留学生用授業を履修しています。</td>
+                                            </tr>
+                                            <tr class="ui-state-highlight">
+                                                <td class="colSizeCheckbox alignCenter">
+                                                    <input type="checkbox" name="rskhCheckList_checkbox" checked>
+                                                </td>
+                                                <td class="colSize10 alignLeft">011</td>
+                                                <td class="colSizeInitial alignLeft">再履修不可授業を再度履修しています。</td>
+                                            </tr>
+                                            <tr class="ui-state-highlight">
+                                                <td class="colSizeCheckbox alignCenter">
+                                                    <input type="checkbox" name="rskhCheckList_checkbox" checked>
+                                                </td>
+                                                <td class="colSize10 alignLeft">012</td>
+                                                <td class="colSizeInitial alignLeft">再履修者用授業を履修しています。</td>
+                                            </tr>
+                                            <tr class="ui-state-highlight">
+                                                <td class="colSizeCheckbox alignCenter">
+                                                    <input type="checkbox" name="rskhCheckList_checkbox" checked>
+                                                </td>
+                                                <td class="colSize10 alignLeft">013</td>
+                                                <td class="colSizeInitial alignLeft">受講指定された学年ではありません。</td>
+                                            </tr>
+                                            <tr class="ui-state-highlight">
+                                                <td class="colSizeCheckbox alignCenter">
+                                                    <input type="checkbox" name="rskhCheckList_checkbox" checked>
+                                                </td>
+                                                <td class="colSize10 alignLeft">014</td>
+                                                <td class="colSizeInitial alignLeft">受講指定されたセメスタではありません。</td>
+                                            </tr>
+                                            <tr class="ui-state-highlight">
+                                                <td class="colSizeCheckbox alignCenter">
+                                                    <input type="checkbox" name="rskhCheckList_checkbox" checked>
+                                                </td>
+                                                <td class="colSize10 alignLeft">015</td>
+                                                <td class="colSizeInitial alignLeft">受講指定された入学年度学期ではありません。</td>
+                                            </tr>
+                                            <tr class="ui-state-highlight">
+                                                <td class="colSizeCheckbox alignCenter">
+                                                    <input type="checkbox" name="rskhCheckList_checkbox" checked>
+                                                </td>
+                                                <td class="colSize10 alignLeft">016</td>
+                                                <td class="colSizeInitial alignLeft">受講指定された学科組織ではありません。</td>
+                                            </tr>
+                                            <tr class="ui-state-highlight">
+                                                <td class="colSizeCheckbox alignCenter">
+                                                    <input type="checkbox" name="rskhCheckList_checkbox" checked>
+                                                </td>
+                                                <td class="colSize10 alignLeft">017</td>
+                                                <td class="colSizeInitial alignLeft">受講指定された専攻コースではありません。</td>
+                                            </tr>
+                                            <tr class="ui-state-highlight">
+                                                <td class="colSizeCheckbox alignCenter">
+                                                    <input type="checkbox" name="rskhCheckList_checkbox" checked>
+                                                </td>
+                                                <td class="colSize10 alignLeft">018</td>
+                                                <td class="colSizeInitial alignLeft">受講指定されたクラスではありません。</td>
+                                            </tr>
+                                            <tr class="ui-state-highlight">
+                                                <td class="colSizeCheckbox alignCenter">
+                                                    <input type="checkbox" name="rskhCheckList_checkbox" checked>
+                                                </td>
+                                                <td class="colSize10 alignLeft">019</td>
+                                                <td class="colSizeInitial alignLeft">受講指定された就学種別ではありません。</td>
+                                            </tr>
+                                            <tr class="ui-state-highlight">
+                                                <td class="colSizeCheckbox alignCenter">
+                                                    <input type="checkbox" name="rskhCheckList_checkbox" checked>
+                                                </td>
+                                                <td class="colSize10 alignLeft">020</td>
+                                                <td class="colSizeInitial alignLeft">受講指定された資格を希望していません。</td>
+                                            </tr>
+                                            <tr class="ui-state-highlight">
+                                                <td class="colSizeCheckbox alignCenter">
+                                                    <input type="checkbox" name="rskhCheckList_checkbox" checked>
+                                                </td>
+                                                <td class="colSize10 alignLeft">021</td>
+                                                <td class="colSizeInitial alignLeft">授業の開始・終了時刻が重複しています。</td>
+                                            </tr>
+                                            <tr class="ui-state-highlight">
+                                                <td class="colSizeCheckbox alignCenter">
+                                                    <input type="checkbox" name="rskhCheckList_checkbox" checked>
+                                                </td>
+                                                <td class="colSize10 alignLeft">022</td>
+                                                <td class="colSizeInitial alignLeft">抽選結果が履修不可となっています。</td>
+                                            </tr>
+                                            <tr class="ui-state-highlight">
+                                                <td class="colSizeCheckbox alignCenter">
+                                                    <input type="checkbox" name="rskhCheckList_checkbox" checked>
+                                                </td>
+                                                <td class="colSize10 alignLeft">023</td>
+                                                <td class="colSizeInitial alignLeft">振替待ちの修得済科目と同一科目を履修しています。</td>
+                                            </tr>
+                                            <tr class="ui-state-highlight">
+                                                <td class="colSizeCheckbox alignCenter">
+                                                    <input type="checkbox" name="rskhCheckList_checkbox" checked>
+                                                </td>
+                                                <td class="colSize10 alignLeft">024</td>
+                                                <td class="colSizeInitial alignLeft">時間帯別の上限授業数を超えています。（履修中の授業数）</td>
+                                            </tr>
+                                            <tr class="ui-state-highlight">
+                                                <td class="colSizeCheckbox alignCenter">
+                                                    <input type="checkbox" name="rskhCheckList_checkbox" checked>
+                                                </td>
+                                                <td class="colSize10 alignLeft">025</td>
+                                                <td class="colSizeInitial alignLeft">時間帯別の上限科目数を超えています。（履修中・成績の科目数）</td>
+                                            </tr>
+                                            <tr class="ui-state-highlight">
+                                                <td class="colSizeCheckbox alignCenter">
+                                                    <input type="checkbox" name="rskhCheckList_checkbox" checked>
+                                                </td>
+                                                <td class="colSize10 alignLeft">026</td>
+                                                <td class="colSizeInitial alignLeft">時間帯別の上限単位数を超過。（履修中・成績の単位数）★</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <div id="tab2" class="ui-tabs-panel" style="display: none;">
+                        <section>
+                            <p class="countData"><span>0</span>件</p>
+                            <div class="ui-datatable ui-datatable-scrollable">
+                                <div class="ui-datatable-scrollable-header">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th class="colSizeCheckbox alignCenter">
+                                                    <input type="checkbox" id="selectAll2">
+                                                </th>
+                                                <th class="colSize10 alignLeft">履修条件コード</th>
+                                                <th class="colSizeInitial alignLeft">履修条件メッセージ</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="ui-datatable-scrollable-body" style="height:420px">
+                                    <table>
+                                        <tbody>
+                                            <tr class="ui-datatable-empty-message">
+                                                <td colspan="3">対象データがありません。</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+                <div class="btnAreaFuncBottom">
+                    <button class="btnOther letterSpaceHalf" type="button" onclick="showConfirmDialog()">確定</button>
+                    <button class="btnClear" type="button">クリア</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- 確認ダイアログ -->
+    <div id="confirmDialog" class="ui-confirm-dialog ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-helper-hidden-container">
+        <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top">
+            <span class="ui-dialog-title"></span>
+            <a href="#" class="ui-dialog-titlebar-close" onclick="hideConfirmDialog(); return false;">
+                <span class="ui-icon ui-icon-closethick">×</span>
+            </a>
+        </div>
+        <div class="ui-dialog-content ui-widget-content">
+            <span class="ui-confirm-dialog-severity">
+                <i class="fa fa-question-circle"></i>
+            </span>
+            <span class="ui-confirm-dialog-message">確定します。よろしいですか？</span>
+        </div>
+        <div class="ui-dialog-buttonpane ui-dialog-footer ui-widget-content ui-helper-clearfix">
+            <button class="ui-confirmdialog-yes" type="button" onclick="confirmAction()">
+                <i class="fa fa-check"></i> OK
+            </button>
+            <button class="ui-confirmdialog-no" type="button" onclick="hideConfirmDialog()">
+                <i class="fa fa-close"></i> キャンセル
+            </button>
+        </div>
+    </div>
+
+    <!-- オーバーレイ -->
+    <div id="overlay" class="ui-widget-overlay ui-helper-hidden-container"></div>
+
+    <footer>
+        <p>
+            <small>Copyright 2015 Japan System Techniques Co., Ltd. All rights reserved</small>
+        </p>
+    </footer>
+
+    <script>
+        // フォントサイズ変更機能
+        document.getElementById('fontChange').addEventListener('click', function(e) {
+            if (e.target.tagName === 'LI') {
+                document.querySelectorAll('#fontChange li').forEach(li => li.classList.remove('current'));
+                e.target.classList.add('current');
+                
+                const size = e.target.id;
+                if (size === 'fontS') {
+                    document.body.style.fontSize = '11px';
+                } else if (size === 'fontM') {
+                    document.body.style.fontSize = '13px';
+                } else if (size === 'fontL') {
+                    document.body.style.fontSize = '15px';
+                }
+            }
+        });
+
+        // タブ切り替え機能
+        document.querySelectorAll('.ui-tabs-nav li').forEach((tab, index) => {
+            tab.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // タブのアクティブ状態を切り替え
+                document.querySelectorAll('.ui-tabs-nav li').forEach(t => t.classList.remove('ui-tabs-active'));
+                this.classList.add('ui-tabs-active');
+                
+                // パネルの表示を切り替え
+                document.querySelectorAll('.ui-tabs-panel').forEach(panel => panel.style.display = 'none');
+                if (index === 0) {
+                    document.getElementById('tab1').style.display = 'block';
+                } else {
+                    document.getElementById('tab2').style.display = 'block';
+                }
+            });
+        });
+
+        // 全選択チェックボックス
+        document.getElementById('selectAll1').addEventListener('change', function() {
+            const checkboxes = document.querySelectorAll('#tab1 input[name="rskhCheckList_checkbox"]:not(:disabled)');
+            checkboxes.forEach(cb => cb.checked = this.checked);
+        });
+
+        document.getElementById('selectAll2').addEventListener('change', function() {
+            const checkboxes = document.querySelectorAll('#tab2 input[type="checkbox"]:not(#selectAll2)');
+            checkboxes.forEach(cb => cb.checked = this.checked);
+        });
+
+        // index.htmlへ戻る
+        function goToIndex() {
+            window.location.href = 'index.html';
+        }
+
+        // 確認ダイアログを表示
+        function showConfirmDialog() {
+            document.getElementById('confirmDialog').classList.remove('ui-helper-hidden-container');
+            document.getElementById('overlay').classList.remove('ui-helper-hidden-container');
+        }
+
+        // 確認ダイアログを非表示
+        function hideConfirmDialog() {
+            document.getElementById('confirmDialog').classList.add('ui-helper-hidden-container');
+            document.getElementById('overlay').classList.add('ui-helper-hidden-container');
+        }
+
+        // 確定処理
+        function confirmAction() {
+            // ここで実際の確定処理を行う
+            hideConfirmDialog();
+            
+            // index.htmlに戻る
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生別履修登録 - rpadev RX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="rpadev-rx-common.css">
+</head>
+<body>
+    <header>
+        <div class="headerInfo">
+            <div class="logo-area">
+                <h1>rpadev RX</h1>
+            </div>
+            
+            <div class="fontSize">
+                <ul id="fontChange">
+                    <li id="fontS">小</li>
+                    <li id="fontM" class="current">中</li>
+                    <li id="fontL">大</li>
+                </ul>
+            </div>
+            
+            <div class="userInfo">USER1 全利用者ユーザ</div>
+            
+            <div class="btnAreaHeader">
+                <button class="btnMyhelp" disabled>
+                    <i class="fa fa-question-circle"></i> マイヘルプ
+                </button>
+                <button class="btnHelp">
+                    <i class="fa fa-question"></i> ヘルプ
+                </button>
+                <button class="btnClose">
+                    <i class="fa fa-close"></i> 閉じる
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <form id="funcForm" method="post" action="#">
+            <div class="headContent">
+                <div class="funcInfo">
+                    <h1>学生別履修登録</h1>
+                    <div class="funcNameArea">
+                        <span class="funcName">学生別履修登録 [Kmd004]</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <!-- 条件入力エリア -->
+                <section>
+                    <div class="jokenArea">
+                        <dl class="inputArea">
+                            <div class="itemTable">
+                                <dt class="hissu">
+                                    <label for="rishuTorokNendo">履修登録年度</label>
+                                </dt>
+                                <dd>
+                                    <input id="rishuTorokNendo" name="rishuTorokNendo" type="text" value="2024" disabled class="inputNumSize4">
+                                </dd>
+                                <dt class="hissu">
+                                    <label for="rishuTorokGakkiNo">履修登録学期ＮＯ</label>
+                                </dt>
+                                <dd>
+                                    <input id="rishuTorokGakkiNo" name="rishuTorokGakkiNo" type="text" value="1" disabled class="inputNumSize2">
+                                </dd>
+                            </div>
+                            <div class="itemTable">
+                                <dt>
+                                    <label for="kaikoNendo">開講年度</label>
+                                </dt>
+                                <dd>
+                                    <input id="kaikoNendo" name="kaikoNendo" type="text" disabled class="inputNumSize4">
+                                </dd>
+                                <dt>
+                                    <label for="kaikoGakkiNo">開講学期ＮＯ</label>
+                                </dt>
+                                <dd>
+                                    <input id="kaikoGakkiNo" name="kaikoGakkiNo" type="text" disabled class="inputNumSize2">
+                                </dd>
+                            </div>
+                            <div class="itemTable">
+                                <dt class="hissu">
+                                    <label for="kijunDate">所属基準日</label>
+                                </dt>
+                                <dd>
+                                    <input id="kijunDate" name="kijunDate" type="text" value="2025/07/25" disabled>
+                                    <button class="btnDateClear" disabled>
+                                        <i class="fa fa-times-circle"></i>
+                                    </button>
+                                </dd>
+                            </div>
+                            <div class="itemTable">
+                                <dt class="hissu">
+                                    <label for="gaksekiCd">学籍番号</label>
+                                </dt>
+                                <dd>
+                                    <button class="inTableBtnIconAlt" title="検索" disabled>
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                    <input id="gaksekiCd" name="gaksekiCd" type="text" value="031A--0002" disabled class="inputHalfSize10">
+                                    <button class="inTableBtn letterSpaceHalf" type="button">解除</button>
+                                    <span class="reflectName">青木　文美</span>
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                </section>
+
+                <!-- 学生情報エリア -->
+                <section>
+                    <div class="gakArea">
+                        <dl class="outputArea">
+                            <div class="itemTable">
+                                <dt><label>学年</label></dt>
+                                <dd>4年</dd>
+                                <dt><label>セメスタ</label></dt>
+                                <dd></dd>
+                            </div>
+                            <div class="itemTable">
+                                <dt><label>カリキュラム学科組織</label></dt>
+                                <dd>1A：文学部 国文学科</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </section>
+
+                <hr class="ui-separator">
+
+                <!-- データリスト -->
+                <section>
+                    <p class="countData"><span>6</span>件</p>
+                    <div class="ui-datatable ui-datatable-scrollable">
+                        <div class="ui-datatable-scrollable-header">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="colSizeCheckbox alignCenter">
+                                            <input type="checkbox" id="selectAll">
+                                        </th>
+                                        <th class="colSize4 alignLeft">開始年度</th>
+                                        <th class="colSize8 alignLeft">授業コード</th>
+                                        <th class="colSize8 alignLeft">科目コード</th>
+                                        <th class="colSize20 alignLeft">授業科目名称</th>
+                                        <th class="colSize3 alignCenter">状態</th>
+                                        <th class="colSize3 alignLeft">エラー</th>
+                                        <th class="colSize4 alignCenter">除外設定</th>
+                                        <th class="colSize4 alignLeft">抽選結果</th>
+                                        <th class="colSize4 alignCenter">試験のみ</th>
+                                        <th class="colSize3 alignLeft">期間</th>
+                                        <th class="colSize3 alignRight">単位</th>
+                                        <th class="colSize12 alignLeft">コマ</th>
+                                        <th class="colSize12 alignLeft">代表教員</th>
+                                        <th class="colSizeBtn alignCenter">除外</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="ui-datatable-scrollable-body" style="height:280px">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="colSizeCheckbox alignCenter">
+                                            <input type="checkbox" name="dataList_checkbox">
+                                        </td>
+                                        <td class="colSize4 alignLeft">2024</td>
+                                        <td class="colSize8 alignLeft">12111</td>
+                                        <td class="colSize8 alignLeft">800400</td>
+                                        <td class="colSize20 alignLeft">日本語教育実習</td>
+                                        <td class="colSize3 alignCenter"></td>
+                                        <td class="colSize3 alignLeft"></td>
+                                        <td class="colSize4 alignCenter"></td>
+                                        <td class="colSize4 alignLeft"></td>
+                                        <td class="colSize4 alignCenter"></td>
+                                        <td class="colSize3 alignLeft"></td>
+                                        <td class="colSize3 alignRight">4.0</td>
+                                        <td class="colSize12 alignLeft">実習</td>
+                                        <td class="colSize12 alignLeft">南川　徹</td>
+                                        <td class="colSizeBtn alignCenter">
+                                            <button class="letterSpaceHalf" type="button" onclick="goToKanrenMei()">選択</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="colSizeCheckbox alignCenter">
+                                            <input type="checkbox" name="dataList_checkbox">
+                                        </td>
+                                        <td class="colSize4 alignLeft">2024</td>
+                                        <td class="colSize8 alignLeft">201100</td>
+                                        <td class="colSize8 alignLeft">201100</td>
+                                        <td class="colSize20 alignLeft">応用英語Ⅰ</td>
+                                        <td class="colSize3 alignCenter"></td>
+                                        <td class="colSize3 alignLeft"></td>
+                                        <td class="colSize4 alignCenter"></td>
+                                        <td class="colSize4 alignLeft"></td>
+                                        <td class="colSize4 alignCenter"></td>
+                                        <td class="colSize3 alignLeft">2期</td>
+                                        <td class="colSize3 alignRight">2.0</td>
+                                        <td class="colSize12 alignLeft">火4</td>
+                                        <td class="colSize12 alignLeft">中野　由美子</td>
+                                        <td class="colSizeBtn alignCenter">
+                                            <button class="letterSpaceHalf" type="button" onclick="goToKanrenMei()">選択</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="colSizeCheckbox alignCenter">
+                                            <input type="checkbox" name="dataList_checkbox">
+                                        </td>
+                                        <td class="colSize4 alignLeft">2024</td>
+                                        <td class="colSize8 alignLeft">201101</td>
+                                        <td class="colSize8 alignLeft">201101</td>
+                                        <td class="colSize20 alignLeft">応用英語Ⅱ</td>
+                                        <td class="colSize3 alignCenter"></td>
+                                        <td class="colSize3 alignLeft"></td>
+                                        <td class="colSize4 alignCenter"></td>
+                                        <td class="colSize4 alignLeft"></td>
+                                        <td class="colSize4 alignCenter"></td>
+                                        <td class="colSize3 alignLeft">2期</td>
+                                        <td class="colSize3 alignRight">2.0</td>
+                                        <td class="colSize12 alignLeft">火5</td>
+                                        <td class="colSize12 alignLeft">中野　由美子</td>
+                                        <td class="colSizeBtn alignCenter">
+                                            <button class="letterSpaceHalf" type="button" onclick="goToKanrenMei()">選択</button>
+                                        </td>
+                                    </tr>
+                                    <tr class="rowError">
+                                        <td class="colSizeCheckbox alignCenter">
+                                            <input type="checkbox" name="dataList_checkbox">
+                                        </td>
+                                        <td class="colSize4 alignLeft">2024</td>
+                                        <td class="colSize8 alignLeft">64204</td>
+                                        <td class="colSize8 alignLeft">100700</td>
+                                        <td class="colSize20 alignLeft">社　会　学</td>
+                                        <td class="colSize3 alignCenter"></td>
+                                        <td class="colSize3 alignLeft">006</td>
+                                        <td class="colSize4 alignCenter"></td>
+                                        <td class="colSize4 alignLeft"></td>
+                                        <td class="colSize4 alignCenter"></td>
+                                        <td class="colSize3 alignLeft"></td>
+                                        <td class="colSize3 alignRight">4.0</td>
+                                        <td class="colSize12 alignLeft">土4</td>
+                                        <td class="colSize12 alignLeft">藤川　伸治</td>
+                                        <td class="colSizeBtn alignCenter">
+                                            <button class="letterSpaceHalf" type="button" onclick="goToKanrenMei()">選択</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="colSizeCheckbox alignCenter">
+                                            <input type="checkbox" name="dataList_checkbox">
+                                        </td>
+                                        <td class="colSize4 alignLeft">2024</td>
+                                        <td class="colSize8 alignLeft">A10001</td>
+                                        <td class="colSize8 alignLeft">500300</td>
+                                        <td class="colSize20 alignLeft">近代文学基礎演習</td>
+                                        <td class="colSize3 alignCenter"></td>
+                                        <td class="colSize3 alignLeft"></td>
+                                        <td class="colSize4 alignCenter"></td>
+                                        <td class="colSize4 alignLeft"></td>
+                                        <td class="colSize4 alignCenter"></td>
+                                        <td class="colSize3 alignLeft"></td>
+                                        <td class="colSize3 alignRight">4.0</td>
+                                        <td class="colSize12 alignLeft">水1、水2、水3、金6</td>
+                                        <td class="colSize12 alignLeft">小田　京子</td>
+                                        <td class="colSizeBtn alignCenter">
+                                            <button class="letterSpaceHalf" type="button" onclick="goToKanrenMei()">選択</button>
+                                        </td>
+                                    </tr>
+                                    <tr class="rowError">
+                                        <td class="colSizeCheckbox alignCenter">
+                                            <input type="checkbox" name="dataList_checkbox">
+                                        </td>
+                                        <td class="colSize4 alignLeft">2024</td>
+                                        <td class="colSize8 alignLeft">B10001</td>
+                                        <td class="colSize8 alignLeft">500400</td>
+                                        <td class="colSize20 alignLeft">漢文学基礎演習</td>
+                                        <td class="colSize3 alignCenter"></td>
+                                        <td class="colSize3 alignLeft">006</td>
+                                        <td class="colSize4 alignCenter"></td>
+                                        <td class="colSize4 alignLeft"></td>
+                                        <td class="colSize4 alignCenter"></td>
+                                        <td class="colSize3 alignLeft"></td>
+                                        <td class="colSize3 alignRight">4.0</td>
+                                        <td class="colSize12 alignLeft">月1、月2、月3、月5、月7</td>
+                                        <td class="colSize12 alignLeft">塩川　正弘</td>
+                                        <td class="colSizeBtn alignCenter">
+                                            <button class="letterSpaceHalf" type="button" onclick="goToKanrenMei()">選択</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="btnAreaDatatable">
+                        <button class="dtableSubBtn letterSpaceHalf" type="button">削除</button>
+                        <button class="dtableSubBtn letterSpaceHalf" type="button">取消</button>
+                    </div>
+                </section>
+
+                <!-- 編集エリア -->
+                <section>
+                    <div class="editArea">
+                        <dl class="inputArea">
+                            <div class="itemTable">
+                                <dt class="hissu">
+                                    <label for="nendo">開始年度</label>
+                                </dt>
+                                <dd>
+                                    <input id="nendo" name="nendo" type="text" value="2024" class="inputNumSize4">
+                                </dd>
+                            </div>
+                            <div class="itemTable">
+                                <dt class="hissu">
+                                    <label for="jugyoCd">授業コード</label>
+                                </dt>
+                                <dd>
+                                    <button class="inTableBtnIconAlt" title="検索">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                    <input id="jugyoCd" name="jugyoCd" type="text" class="inputHalfSize10">
+                                    <span class="reflectName"></span>
+                                </dd>
+                            </div>
+                            <div class="itemTable">
+                                <dt>
+                                    <label for="chusenKekkaKbn">抽選結果区分</label>
+                                </dt>
+                                <dd>
+                                    <select id="chusenKekkaKbn" name="chusenKekkaKbn">
+                                        <option value="">選択してください</option>
+                                        <option value="0">未抽選</option>
+                                        <option value="1">当選</option>
+                                        <option value="2">落選</option>
+                                    </select>
+                                </dd>
+                                <dt>
+                                    <label for="sikenOnlyFlg">試験のみ</label>
+                                </dt>
+                                <dd>
+                                    <input type="checkbox" id="sikenOnlyFlg" name="sikenOnlyFlg">
+                                </dd>
+                            </div>
+                            <div class="itemTable">
+                                <dt>
+                                    <label for="seisekiKinyuFlg">成績台帳記入</label>
+                                </dt>
+                                <dd>
+                                    <input type="checkbox" id="seisekiKinyuFlg" name="seisekiKinyuFlg">
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                </section>
+
+                <div class="btnAreaFuncBottom">
+                    <button class="btnOther letterSpaceHalf" type="button">確定</button>
+                </div>
+
+                <hr class="ui-separator">
+
+                <!-- 除外設定エリア -->
+                <section>
+                    <div class="editSubArea">
+                        <dl class="inputArea">
+                            <div class="itemTable">
+                                <dt><label>除外設定状況</label></dt>
+                                <dd>
+                                    <button class="inTableBtn" type="button">履修制限エラー除外</button>
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                </section>
+
+                <!-- エラーリスト -->
+                <section>
+                    <p class="countData"><span>4</span>件</p>
+                    <div class="ui-datatable ui-datatable-scrollable">
+                        <div class="ui-datatable-scrollable-header">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="colSize4 alignLeft">エラー</th>
+                                        <th class="colSize10 alignLeft">授業コード</th>
+                                        <th class="colSize7 alignLeft">エラーコード</th>
+                                        <th class="colSizeInitial alignLeft">エラーメッセージ</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="ui-datatable-scrollable-body" style="height:140px">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="colSize4 alignLeft">基本</td>
+                                        <td class="colSize10 alignLeft">64204</td>
+                                        <td class="colSize7 alignLeft">006</td>
+                                        <td class="colSizeInitial alignLeft">複数回修得不可である修得済科目を履修しています。</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="colSize4 alignLeft">基本</td>
+                                        <td class="colSize10 alignLeft">B10001</td>
+                                        <td class="colSize7 alignLeft">006</td>
+                                        <td class="colSizeInitial alignLeft">複数回修得不可である修得済科目を履修しています。</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="colSize4 alignLeft">制限</td>
+                                        <td class="colSize10 alignLeft"></td>
+                                        <td class="colSize7 alignLeft">0008</td>
+                                        <td class="colSizeInitial alignLeft">練習問題</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="colSize4 alignLeft">制限</td>
+                                        <td class="colSize10 alignLeft"></td>
+                                        <td class="colSize7 alignLeft">41A03</td>
+                                        <td class="colSizeInitial alignLeft">卒業演習の履修登録を行うこと</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 履修チェックエリア -->
+                <section>
+                    <div class="rishuCheckArea">
+                        <dl class="inputArea">
+                            <div class="itemTable">
+                                <dt><label>履修チェック</label></dt>
+                                <dd>
+                                    <input type="radio" id="rishuCheck1" name="rishuCheckFlg" value="1" checked>
+                                    <label for="rishuCheck1">行う</label>
+                                    <input type="radio" id="rishuCheck2" name="rishuCheckFlg" value="0">
+                                    <label for="rishuCheck2">行わない</label>
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                </section>
+
+                <div class="btnAreaFuncBottom">
+                    <button class="btnRegist letterSpaceHalf" type="button" onclick="showConfirmDialog()">登録</button>
+                    <button class="btnClear" type="button">クリア</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- 確認ダイアログ -->
+    <div id="confirmDialog" class="ui-confirm-dialog ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-helper-hidden-container">
+        <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top">
+            <span class="ui-dialog-title"></span>
+            <a href="#" class="ui-dialog-titlebar-close" onclick="hideConfirmDialog(); return false;">
+                <span class="ui-icon ui-icon-closethick">×</span>
+            </a>
+        </div>
+        <div class="ui-dialog-content ui-widget-content">
+            <span class="ui-confirm-dialog-severity">
+                <i class="fa fa-question-circle"></i>
+            </span>
+            <span class="ui-confirm-dialog-message">登録します。よろしいですか？</span>
+        </div>
+        <div class="ui-dialog-buttonpane ui-dialog-footer ui-widget-content ui-helper-clearfix">
+            <button class="ui-confirmdialog-yes" type="button" onclick="confirmAction()">
+                <i class="fa fa-check"></i> OK
+            </button>
+            <button class="ui-confirmdialog-no" type="button" onclick="hideConfirmDialog()">
+                <i class="fa fa-close"></i> キャンセル
+            </button>
+        </div>
+    </div>
+
+    <!-- オーバーレイ -->
+    <div id="overlay" class="ui-widget-overlay ui-helper-hidden-container"></div>
+
+    <footer>
+        <p>
+            <small>Copyright 2015 Japan System Techniques Co., Ltd. All rights reserved</small>
+        </p>
+    </footer>
+
+    <script>
+        // フォントサイズ変更機能
+        document.getElementById('fontChange').addEventListener('click', function(e) {
+            if (e.target.tagName === 'LI') {
+                document.querySelectorAll('#fontChange li').forEach(li => li.classList.remove('current'));
+                e.target.classList.add('current');
+                
+                const size = e.target.id;
+                if (size === 'fontS') {
+                    document.body.style.fontSize = '11px';
+                } else if (size === 'fontM') {
+                    document.body.style.fontSize = '13px';
+                } else if (size === 'fontL') {
+                    document.body.style.fontSize = '15px';
+                }
+            }
+        });
+
+        // 全選択チェックボックス
+        document.getElementById('selectAll').addEventListener('change', function() {
+            const checkboxes = document.querySelectorAll('input[name="dataList_checkbox"]');
+            checkboxes.forEach(cb => cb.checked = this.checked);
+        });
+
+        // subpage.htmlへ遷移
+        function goToKanrenMei() {
+            window.location.href = 'subpage.html';
+        }
+
+        // 確認ダイアログを表示
+        function showConfirmDialog() {
+            document.getElementById('confirmDialog').classList.remove('ui-helper-hidden-container');
+            document.getElementById('overlay').classList.remove('ui-helper-hidden-container');
+        }
+
+        // 確認ダイアログを非表示
+        function hideConfirmDialog() {
+            document.getElementById('confirmDialog').classList.add('ui-helper-hidden-container');
+            document.getElementById('overlay').classList.add('ui-helper-hidden-container');
+        }
+
+        // 確定処理
+        function confirmAction() {
+            // ここで実際の登録処理を行う
+            hideConfirmDialog();
+            
+            // 必要に応じて、フォームの送信やページリロードなどを実行
+            // document.getElementById('funcForm').submit();
+            // または
+            // location.reload();
+        }
+    </script>
+</body>
+</html>
