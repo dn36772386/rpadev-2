@@ -545,3 +545,122 @@ footer {
         padding-left: 0;
     }
 }
+
+
+/* ─────────────────────────────────────────────
+   ChatGPT / OpenAI 風テーマ   2025‑07‑26 追加
+────────────────────────────────────────────── */
+
+/* 1) フォントと配色のベース設定 */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+:root {
+    --cgpt-bg:          #f7f7f8;
+    --cgpt-surface:     #ffffff;
+    --cgpt-on-surface:  #202123;
+    --cgpt-header:      #202123;
+    --cgpt-accent:      #10a37f;
+    --cgpt-accent-hov:  #14b78a;
+    --cgpt-border:      #e0e0e0;
+}
+
+body {
+    font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+    background: var(--cgpt-bg);
+    color: var(--cgpt-on-surface);
+    line-height: 1.6;
+}
+
+/* 2) ヘッダー */
+header {
+    background: var(--cgpt-header);
+    color: #fff;
+    padding: 12px 24px;
+}
+header .logo-area h1 {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+/* 3) コンテナ＆カード風装飾 */
+.container {
+    max-width: 1200px;
+    margin: 24px auto;
+    background: var(--cgpt-surface);
+    border: 1px solid var(--cgpt-border);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    padding: 32px 40px;
+}
+
+/* 4) ボタン統一 */
+.btnAreaHeader button,
+button[class^="btn"] {
+    background: var(--cgpt-accent);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+.btnAreaHeader button:hover,
+button[class^="btn"]:hover {
+    background: var(--cgpt-accent-hov);
+}
+
+/* 5) 入力フィールド */
+input[type="text"],
+select,
+textarea {
+    border: 1px solid var(--cgpt-border);
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-size: 13px;
+}
+input[type="text"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--cgpt-accent);
+    box-shadow: 0 0 0 2px rgba(16,163,127,0.15);
+}
+
+/* 6) テーブル (データ表示用) */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 13px;
+}
+thead {
+    background: var(--cgpt-bg);
+}
+th,
+td {
+    border: 1px solid var(--cgpt-border);
+    padding: 8px 10px;
+    text-align: left;
+}
+
+/* 7) 必須ラベルの色味調整 */
+.itemTable dt.hissu::after {
+    color: var(--cgpt-accent);
+}
+
+/* 8) レスポンシブ微調整 */
+@media (max-width: 768px) {
+    .container {
+        padding: 24px 20px;
+    }
+    header .logo-area h1 {
+        font-size: 16px;
+    }
+}
+
+
+
+
+
+
+
